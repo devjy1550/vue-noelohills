@@ -112,6 +112,7 @@
 
 <script>
   import {
+    // computed,
     onMounted
   } from 'vue'
   import $ from 'jquery'
@@ -155,83 +156,85 @@
           }
         });
       });
+      /*
+            const mbMenuList = [{
+                menuType: 'S',
+                mainText: 'SHOP',
+                mainLink: '',
+                subMenuArr: [{
+                  link: '#',
+                  title: 'ALL PRODUCT'
+                }, {
+                  link: '#',
+                  title: 'NEWBORN'
+                }, {
+                  link: '#',
+                  title: 'BABY'
+                }, {
+                  link: '#',
+                  title: 'FAMILY'
+                }, {
+                  link: '#',
+                  title: 'BATH GOODS'
+                }, {
+                  link: '#',
+                  title: 'PRESENTS'
+                }]
+              },
+              {
+                menuType: 'S',
+                mainText: 'ABOUT',
+                mainLink: '',
+                subMenuArr: [
+                  { link: '#', title: 'BRAND STORY' },
+                  { link: '#', title: 'WHO WE ARE' },
+                  { link: '#', title: 'MAKE A WISH' },
+                  { link: '#', title: 'PRESS' },
+                ]
 
-      const mbMenuList = [{
-          menuType: 'S',
-          mainText: 'SHOP',
-          mainLink: '',
-          subMenuArr: [{
-            link: '#',
-            title: 'ALL PRODUCT'
-          }, {
-            link: '#',
-            title: 'NEWBORN'
-          }, {
-            link: '#',
-            title: 'BABY'
-          }, {
-            link: '#',
-            title: 'FAMILY'
-          }, {
-            link: '#',
-            title: 'BATH GOODS'
-          }, {
-            link: '#',
-            title: 'PRESENTS'
-          }]
-        },
-        {
-          menuType: 'S',
-          mainText: 'ABOUT',
-          mainLink: '',
-          subMenuArr: [
-            { link: '#', title: 'BRAND STORY' },
-            { link: '#', title: 'WHO WE ARE' },
-            { link: '#', title: 'MAKE A WISH' },
-            { link: '#', title: 'PRESS' },
-          ]
+              },
+              {
+                menuType: 'S',
+                mainText: 'TRUST',
+                mainLink: '',
+                subMenuArr: [
+                  { link: '#', title: 'FOOD GRADE' },
+                  { link: '#', title: 'PENTACERA™'},
+                  { link: '#', title: 'BABY SKINCARE' },
+                  { link: '#', title: 'CERTIFICATIONS' },
+                  { link: '#', title: 'INGREDIENT' },
+                ]
 
-        },
-        {
-          menuType: 'S',
-          mainText: 'TRUST',
-          mainLink: '',
-          subMenuArr: [
-            { link: '#', title: 'FOOD GRADE' },
-            { link: '#', title: 'PENTACERA™'},
-            { link: '#', title: 'BABY SKINCARE' },
-            { link: '#', title: 'CERTIFICATIONS' },
-            { link: '#', title: 'INGREDIENT' },
-          ]
+              },
+              {
+                menuType: 'A',
+                mainText: 'STOCKISTS',
+                mainLink: 'a.html'
 
-        },
-        {
-          menuType: 'A',
-          mainText: 'STOCKISTS',
-          mainLink: 'a.html'
+              },
+              {
+                menuType: 'A',
+                mainText: 'REVIEW',
+                mainLink: 'b.html'
 
-        },
-        {
-          menuType: 'A',
-          mainText: 'REVIEW',
-          mainLink: 'b.html'
+              },
+              {
+                menuType: 'S',
+                mainText: 'BENEFITS',
+                mainLink: '',
+                subMenuArr: [
+                  { link: '#', title: 'EVENTS' },
+                  { link: '#', title: 'MEMBERS' },
+                ]
 
-        },
-        {
-          menuType: 'S',
-          mainText: 'BENEFITS',
-          mainLink: '',
-          subMenuArr: [
-            { link: '#', title: 'EVENTS' },
-            { link: '#', title: 'MEMBERS' },
-          ]
-
-        }
-        //  아래태그가 span이면 S, a태그면  A로 menuType지정햇음
-      ];
+              }
+              //  아래태그가 span이면 S, a태그면  A로 menuType지정햇음
+            ];
+      */
+      // const mbMenuList = computed();
 
       return {
-        mbMenuList
+        // mbMenuList
       }
     }
   }
