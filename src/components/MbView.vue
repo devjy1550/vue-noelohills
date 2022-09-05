@@ -9,12 +9,12 @@
       </div>
       <div class="mb-wrap">
         <ul class="mb-menu">
-          <li v-for="(item, index) in mbmenu" v-bind:key="index">
+          <li v-for="(item, index) in mbMenuList" v-bind:key="index">
             <span class="mb-mainmenu" v-if="item.menuType == 'S'">{{item.mainText}}</span>
             <a v-bind:href="item.mainLink" class="mb-mainmenu" v-if="item.menuType == 'A'">{{item.mainText}}</a>
 
             <ul class="mb-submenu" v-if="item.menuType == 'S'">
-              <li v-for="(subitem, subindex) in item.subMenuArr" v-bind:key="subindex">
+              <li v-for="(subitem, subindex) in item.subArr" v-bind:key="subindex">
                 <a v-bind:href="subitem.link">{{subitem.title}}</a></li>
             </ul>
           </li>
@@ -26,20 +26,27 @@
 
 <script>
   import {
-    onMounted,
-    computed  //추가
+    // onMounted,
+    computed, //추가
+    onUpdated
   } from 'vue';
   import $ from 'jquery';
-import {useStore} from 'vuex';
+  import {
+    useStore
+  } from 'vuex';
 
 
   export default {
-// props : ['mbmenu'],
+    // props : ['mbmenu'],
 
 
     setup() {
       const store = useStore();
-      const mbmenu = computed( () => store.getters.getMbMenuList);
+      const mbMenuList = computed(() => store.getters.getMbMenuData);
+
+      //store의 action  호출
+      // store.dispatch('액션메서드')
+      store.dispatch('fetchMenu');
 
 
 
@@ -47,82 +54,82 @@ import {useStore} from 'vuex';
 
 
       // 화면에  html의 구성이 완료되면
-      onMounted(() => {
-       // 모바일 메뉴
-  let mb_div = $('.mb-div');
+      onUpdated(() => {
+        // 모바일 메뉴
+        let mb_div = $('.mb-div');
 
-  // 모바일 보기버튼 기능 
-  let mb_btn = $('.mb-btn');
+        // 모바일 보기버튼 기능 
+        let mb_btn = $('.mb-btn');
 
-  mb_btn.click(function () {
-    mb_div.show();
-  });
+        mb_btn.click(function () {
+          mb_div.show();
+        });
 
-  // 모바일닫기기능
-  let mb_close = $('.mb-close');
+        // 모바일닫기기능
+        let mb_close = $('.mb-close');
 
-  mb_close.click(function () {
-    mb_div.hide();
-  });
+        mb_close.click(function () {
+          mb_div.hide();
+        });
 
-  // 배경 누르면 닫기
+        // 배경 누르면 닫기
 
-  mb_div.click(function () {
-    mb_div.hide();
-  });
+        mb_div.click(function () {
+          mb_div.hide();
+        });
 
-  // 내용을 클릭하면 배경으로 신호전달막기
-  $('.mb-bg').click(function (event) {
-    //  신호 전달 막기
-    event.stopPropagation();
-  });
-
-
-
-
-  //모바일 메뉴 기능
-  let mb_menu_li = $('.mb-menu > li');
-  $.each(mb_menu_li, function (index) {
-    // mb-mainmenu 를 찾아서 보관
-    let temp = $(this).find('.mb-mainmenu');
-    temp.click(function () {
-      // 펼쳐져있는경우 true,없으면 false
-      let result = temp.hasClass('mb-mainmenu-open');
-
-      if (result == true) {
-        //펼쳐진 클래스가진 경우
-        temp.removeClass('mb-mainmenu-open');
-        // 펼쳐진 서브 메뉴 닫기
-        mb_menu_li.find('.mb-submenu').hide();
-
-      } else {
-        // 모든클래스 일단제거
-        mb_menu_li.find('.mb-mainmenu').removeClass('mb-mainmenu-open');
-        // 모든 펼쳐진 서브메뉴를 닫는다.
-        mb_menu_li.find('mb-submenu').hide();
-        //펼쳐진 클래스 없는 경우
-        temp.addClass('mb-mainmenu-open')
-        // 서비메뉴 쳘치기
-        mb_menu_li.eq(index).find('.mb-submenu').show();
-      }
-    });
-  });
+        // 내용을 클릭하면 배경으로 신호전달막기
+        $('.mb-bg').click(function (event) {
+          //  신호 전달 막기
+          event.stopPropagation();
+        });
 
 
 
-  //윈도우 너비 체크
-  $(window).resize(function () {
-    let temp = $(window).width();
-    if (temp >= 880) {
-      mb_div.hide();
-      $('.mb-mainmenu').removeClass('mb-mainmenu-open');
-      $('.mb-submenu').hide();
-    }
-  });
+
+        //모바일 메뉴 기능
+        let mb_menu_li = $('.mb-menu > li');
+        $.each(mb_menu_li, function (index) {
+          // mb-mainmenu 를 찾아서 보관
+          let temp = $(this).find('.mb-mainmenu');
+          temp.click(function () {
+            // 펼쳐져있는경우 true,없으면 false
+            let result = temp.hasClass('mb-mainmenu-open');
+
+            if (result == true) {
+              //펼쳐진 클래스가진 경우
+              temp.removeClass('mb-mainmenu-open');
+              // 펼쳐진 서브 메뉴 닫기
+              mb_menu_li.find('.mb-submenu').hide();
+
+            } else {
+              // 모든클래스 일단제거
+              mb_menu_li.find('.mb-mainmenu').removeClass('mb-mainmenu-open');
+              // 모든 펼쳐진 서브메뉴를 닫는다.
+              mb_menu_li.find('mb-submenu').hide();
+              //펼쳐진 클래스 없는 경우
+              temp.addClass('mb-mainmenu-open')
+              // 서비메뉴 쳘치기
+              mb_menu_li.eq(index).find('.mb-submenu').show();
+            }
+          });
+        });
+
+
+
+        //윈도우 너비 체크
+        $(window).resize(function () {
+          let temp = $(window).width();
+          if (temp >= 880) {
+            mb_div.hide();
+            $('.mb-mainmenu').removeClass('mb-mainmenu-open');
+            $('.mb-submenu').hide();
+          }
+        });
 
       });
       return {
-mbmenu
+        mbMenuList
       }
     }
 

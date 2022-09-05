@@ -1,28 +1,66 @@
 <template>
   <!-- 상단 배너 -->
   <div class="banner">
-    <div class="swiper-container sw-banner">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide"><a href="#" class="banner-1"></a></div>
-        <div class="swiper-slide"><a href="#" class="banner-2"></a></div>
-        <div class="swiper-slide"><a href="#" class="banner-3"></a></div>
-      </div>
+
+    <Swiper :modules="modules" :autoplay="{delay:2000, disableOnInteraction:false,}" :loop="true" :pagination= "{el:'.sw-banner-pgnt'}" @swiper="onSwiper" :effect="'fade'" :speed="1000" 
+      @slideChange="onSlideChange" class="sw-banner">
+
+      <SwiperSlide class="swiper-slide"><a href="#" class="banner-1"></a></SwiperSlide>
+      <SwiperSlide class="swiper-slide"><a href="#" class="banner-2"></a></SwiperSlide>
+      <SwiperSlide class="swiper-slide"><a href="#" class="banner-3"></a></SwiperSlide>
+
+
       <!-- 슬라이드 컨트롤 -->
       <div class="sw-banner-control">
         <!-- 그냥 페이지네이션만 넣는게아니라 control 등의 div로 한번더 깜싸주는게 좋음 -->
         <div class="sw-banner-pgnt"></div>
       </div>
-    </div>
-    <button class="banner-close"></button>
+      <button class="banner-close"></button>
+    </Swiper>
+
+
+    <!-- <div class="swiper-container sw-banner">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide"><a href="#" class="banner-1"></a></div>
+        <div class="swiper-slide"><a href="#" class="banner-2"></a></div>
+        <div class="swiper-slide"><a href="#" class="banner-3"></a></div>
+      </div> -->
+    <!-- 슬라이드 컨트롤 -->
+    <!-- <div class="sw-banner-control"> -->
+    <!-- 그냥 페이지네이션만 넣는게아니라 control 등의 div로 한번더 깜싸주는게 좋음 -->
+    <!-- <div class="sw-banner-pgnt"></div> -->
+    <!-- </div> -->
+    <!-- </div> -->
+
+
+    <!-- <button class="banner-close"></button> -->
   </div>
 </template>
 
 <script>
   import {
-    onMounted, ref
+    Autoplay, Pagination, EffectFade
+  } from 'swiper';
+  import {
+    Swiper,
+    SwiperSlide
+  } from 'swiper/vue';
+  import 'swiper/css';
+  import 'swiper/css/pagination';
+  import 'swiper/css/effect-fade';
+
+  import {
+    onMounted,
+    ref
   } from 'vue';
   import $ from 'jquery';
+
+
   export default {
+    components: {
+      Swiper,
+      SwiperSlide
+    },
     setup() {
       // 화면에  html의 구성이 완료되면
       onMounted(() => {
@@ -30,7 +68,7 @@
         // // 스크롤시 헤더고정 
         // let header = $('.header');
         // let wrap = $('.wrap');
-        
+
         // 사라지는 시점 px 값
         // banner 의 높이값 px
         let finY = ref(0);
@@ -82,6 +120,10 @@
 
 
       })
+
+      return {
+        modules: [Autoplay, Pagination, EffectFade]
+      }
     }
 
   }
@@ -120,9 +162,9 @@
 
   .banner .sw-banner .sw-banner-control {
     position: absolute;
+    top: 28px;
     left: 50%;
     transform: translateX(-50%);
-    top: 28px;
     display: block;
     z-index: 9;
   }

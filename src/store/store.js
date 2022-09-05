@@ -5,7 +5,7 @@
 // 컴포넌트가 3Depth이상 겹쳐서 props/emit 진행할경우
 // vuex의 도입을 하면 굉장히 유용하게 관리가능
 
-import {createStore } from 'vuex'
+import {createStore} from 'vuex'
 import noeloStore from './modules/noeloStore';
 
 

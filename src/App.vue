@@ -7,65 +7,7 @@
     <!-- 내용 -->
     <div class="wrap">
       <!-- 헤더 -->
-      <header class="header">
-        <!-- 모바일버튼 -->
-        <div class="inner">
-          <div class="mb-btn"></div>
-          <a href="" class="logo"></a>
-          <div class="gnb">
-            <ul class="menu clearfix">
-              <li><a href="">SHOP</a>
-                <ul class="submenu">
-                  <li><a href="">ALL PRODUCT</a></li>
-                  <li><a href="">NEWBORN</a></li>
-                  <li><a href="">BABY</a></li>
-                  <li><a href="">FAMILY</a></li>
-                  <li><a href="">BATH GOODS</a></li>
-                  <li><a href="">PRESENTS</a></li>
-                </ul>
-              </li>
-              <li><a href="">ABOUT</a>
-                <ul class="submenu">
-                  <li><a href="">BRAND STORY</a></li>
-                  <li><a href="">WHO WE ARE</a></li>
-                  <li><a href="">MAKE A WISH</a></li>
-                  <li><a href="">PRESS</a></li>
-                </ul>
-              </li>
-              <li><a href="">TRUST</a>
-                <ul class="submenu">
-                  <li><a href="">FOOD GRADE</a></li>
-                  <li><a href="">PENTACERA<sup>TM</sup></a></li>
-                  <li><a href="">BABY SKINCARE</a></li>
-                  <li><a href="">CERTIFICATIONS</a></li>
-                  <li><a href="">INGREDIENT</a></li>
-                </ul>
-              </li>
-              <li><a href="">STOCKISTS</a>
-              </li>
-              <li><a href="">REVIEW</a>
-              </li>
-              <li><a href="">BENEFITS</a>
-                <ul class="submenu">
-                  <li><a href="">EVENTS</a></li>
-                  <li><a href="">MEMBERS</a></li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-          <div class="member">
-            <ul class="clearfix">
-              <li><a href="" class="member-cart">
-                  <i class="tooltip">장바구니</i>
-                </a></li>
-              <li><a href="" class="member-mypage">
-                  <i class="tooltip">마이페이지</i></a></li>
-              <li><a href="" class="member-login">
-                  <i class="tooltip">로그인</i></a></li>
-            </ul>
-          </div>
-        </div>
-      </header>
+      <HeaderView />
       <!-- 비쥬얼 -->
       <Visual />
       <!-- 카테고리 -->
@@ -112,10 +54,12 @@
 
 <script>
   import {
-    // computed,
-    onMounted
+    computed,
+    // onMounted,
+    onUpdated
   } from 'vue'
   import $ from 'jquery'
+  import {useStore} from 'vuex';
 
 
   import MbDiv from '@/components/MbView.vue'
@@ -123,6 +67,7 @@
   import Visual from '@/components/VisualView.vue'
   import Category from '@/components/CategoryView.vue'
   import Sitemap from '@/components/SitemapView.vue'
+  import HeaderView from '@/components/HeaderView.vue'
 
 
   export default {
@@ -133,10 +78,15 @@
       Visual,
       Category,
       Sitemap,
+      HeaderView
     },
 
     setup() {
-      onMounted(() => {
+      const store = useStore();
+      const mbMenuList =  computed (()=> store.getters.getMbMenuData);
+      store.dispatch('fetchMenu');
+
+      onUpdated(() => {
         // 스크롤시 헤더고정 
         let header = $('.header');
         let wrap = $('.wrap');
@@ -234,7 +184,8 @@
       // const mbMenuList = computed();
 
       return {
-        // mbMenuList
+        mbMenuList
+      
       }
     }
   }
